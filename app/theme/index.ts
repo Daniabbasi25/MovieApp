@@ -8,4 +8,5 @@ export const Colors = {
   Coral: '#E26CA5',
   Indigo: '#564CA3',
   Gold: '#CD9D0F',
+  White: '#FFFFFF',
 };
