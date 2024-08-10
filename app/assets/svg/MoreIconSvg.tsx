@@ -2,11 +2,7 @@ import React, {FC} from 'react';
 import {SvgProps} from '../../model';
 import {Path, Rect, Svg} from 'react-native-svg';
 
-const MediaLibraryIconSvg: FC<SvgProps> = ({
-  height,
-  width,
-  color = '#827D88',
-}) => {
+const MoreIconSvg: FC<SvgProps> = ({height, width, color = '#827D88'}) => {
   return (
     <Svg width={width} height={height} viewBox="0 0 19 14" fill="none">
       <Path
@@ -17,4 +13,4 @@ const MediaLibraryIconSvg: FC<SvgProps> = ({
   );
 };
 
-export default MediaLibraryIconSvg;
+export default MoreIconSvg;

@@ -9,4 +9,5 @@ export const Colors = {
   Indigo: '#564CA3',
   Gold: '#CD9D0F',
   White: '#FFFFFF',
+  Whisper: '#F2F2F6',
 };
