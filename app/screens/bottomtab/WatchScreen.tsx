@@ -30,9 +30,8 @@ const WatchScreen = () => {
           return (
             <View
               style={{
-                height: getHeight(1),
+                height: getHeight(2),
                 width: '100%',
-                backgroundColor: Colors.Whisper,
               }}
             />
           );
@@ -40,6 +39,7 @@ const WatchScreen = () => {
         renderItem={({item}) => {
           return <MovieListItem movie={item} />;
         }}
+        showsVerticalScrollIndicator={false}
       />
     </SafeAreaView>
   );

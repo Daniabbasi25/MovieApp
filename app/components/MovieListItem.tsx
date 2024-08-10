@@ -8,7 +8,8 @@ import {
 import React, {FC} from 'react';
 import {MovieListInfoProps} from '../model';
 import {imagesBaseUrl} from '../config/constant';
-import {getHeight} from '../lib';
+import {fontFamilies, getFontSize, getHeight} from '../lib';
+import {Colors} from '../theme';
 
 interface Props {
   movie: MovieListInfoProps;
@@ -20,7 +21,13 @@ const MovieListItem: FC<Props> = ({movie}) => {
         source={{uri: imagesBaseUrl + movie.backdrop_path}}
         resizeMode="cover"
         style={styles.container}>
-        {/* <Text>{movie.title}</Text> */}
+        <View
+          style={[
+            {flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.2)'},
+            styles.container,
+          ]}>
+          <Text style={styles.text}>{movie.title}</Text>
+        </View>
       </ImageBackground>
     </TouchableOpacity>
   );
@@ -36,5 +43,15 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     overflow: 'hidden',
     resizeMode: 'cover',
+
+    justifyContent: 'flex-end',
+  },
+  text: {
+    fontSize: getFontSize(18),
+    color: Colors.White,
+    fontWeight: '500',
+    fontFamily: fontFamilies.Popins.normal,
+    paddingLeft: 20,
+    paddingBottom: 20,
   },
 });
