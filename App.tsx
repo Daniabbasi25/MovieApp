@@ -1,20 +1,9 @@
-import {View, Text} from 'react-native';
 import React from 'react';
 
+import RootStack from './app/navigations';
+
 const App = () => {
-  return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}>
-      <Text>
-        This is the test from the tenttwent team at least I have to clear it as
-        soon as possible and be there for interview at any cost
-      </Text>
-    </View>
-  );
+  return <RootStack />;
 };
 
 export default App;
