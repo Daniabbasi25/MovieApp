@@ -10,4 +10,5 @@ export const Colors = {
   Gold: '#CD9D0F',
   White: '#FFFFFF',
   Whisper: '#F2F2F6',
+  TextBlack: '#202C43',
 };

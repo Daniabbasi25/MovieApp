@@ -4,6 +4,7 @@ import DashBoardScreen from '../screens/bottomtab/DashBoardScreen';
 import BottomTab from './BottomTab';
 import {RootStackRoots} from '../lib/Constants';
 import MovieDetailScreen from '../screens/MovieDetailScreen';
+import {Colors} from '../theme';
 const Stack = createNativeStackNavigator();
 
 const RootStack = () => {
@@ -18,9 +19,19 @@ const RootStack = () => {
           component={BottomTab}
         />
         <Stack.Screen
-          // options={{
-          //   headerShown: false,
-          // }}
+          options={{
+            headerStyle: {
+              backgroundColor: 'transparent',
+            },
+            headerTransparent: true,
+            headerTitleStyle: {
+              color: Colors.White,
+            },
+            headerTitleAlign: 'left',
+            headerBackTitleVisible: false,
+            headerTitle: 'Movie',
+            headerTintColor: Colors.White,
+          }}
           name={RootStackRoots.movieDetail}
           component={MovieDetailScreen}
         />

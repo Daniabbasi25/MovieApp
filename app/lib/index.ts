@@ -49,6 +49,16 @@ export const getFontSize = (size: number) => {
 
   return size;
 };
+
+export const getRandomColor: () => string = () => {
+  const colors = ['#15D2BC', '#E26CA5', '#564CA3', '#CD9D0F'];
+
+  // Generate a random index to select a color from the array
+  const randomIndex = Math.floor(Math.random() * colors.length);
+
+  return colors[randomIndex];
+};
+
 export const fontFamilies = {
   Popins: {
     normal: isIOS() ? 'Poppins-Regular' : 'PoppinsRegular',

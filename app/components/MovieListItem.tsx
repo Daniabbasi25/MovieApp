@@ -20,7 +20,9 @@ const MovieListItem: FC<Props> = ({movie}) => {
   const navigation = useNavigation();
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate(RootStackRoots.movieDetail as never)}
+      onPress={() =>
+        navigation.navigate(RootStackRoots.movieDetail, {id: movie.id})
+      }
       style={{width: '95%', alignSelf: 'center'}}>
       <ImageBackground
         source={{uri: imagesBaseUrl + movie.backdrop_path}}
