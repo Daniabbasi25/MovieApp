@@ -17,6 +17,7 @@ import {
   getRandomColor,
   getWidth,
 } from '../lib';
+import CustomButton from '../components/CustomButton';
 
 const MovieDetailScreen = ({navigation, route}: any) => {
   const {id} = route.params;
@@ -48,11 +49,24 @@ const MovieDetailScreen = ({navigation, route}: any) => {
   return (
     <ScrollView contentContainerStyle={styles.screenContainer}>
       <ImageBackground
+        resizeMode="stretch"
         style={styles.imageContainer}
         source={{
           uri: imagesBaseUrl + movieDetail?.backdrop_path,
         }}>
-        <Text>In theaters {movieDetail?.release_date}</Text>
+        <View
+          style={[
+            {
+              flex: 1,
+              backgroundColor: 'rgba(0, 0, 0, 0.2)',
+              alignItems: 'center',
+            },
+            styles.imageContainer,
+          ]}>
+          <Text>In theaters {movieDetail?.release_date}</Text>
+          <CustomButton title="Get Tickets" type="Primary" />
+          <CustomButton title="Watch Trailer" type="Secondary" />
+        </View>
       </ImageBackground>
       <View style={styles.contentContainer}>
         <Text style={styles.heading}>Genres</Text>
@@ -87,6 +101,9 @@ const styles = StyleSheet.create({
   imageContainer: {
     flex: 1,
     justifyContent: 'flex-end',
+    // alignItems: 'center',
+    gap: 5,
+    paddingBottom: 20,
   },
   contentContainer: {
     flex: 1,
