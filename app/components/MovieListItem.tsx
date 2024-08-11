@@ -10,13 +10,18 @@ import {MovieListInfoProps} from '../model';
 import {imagesBaseUrl} from '../config/constant';
 import {fontFamilies, getFontSize, getHeight} from '../lib';
 import {Colors} from '../theme';
+import {useNavigation} from '@react-navigation/native';
+import {RootStackRoots} from '../lib/Constants';
 
 interface Props {
   movie: MovieListInfoProps;
 }
 const MovieListItem: FC<Props> = ({movie}) => {
+  const navigation = useNavigation();
   return (
-    <TouchableOpacity style={{width: '95%', alignSelf: 'center'}}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate(RootStackRoots.movieDetail as never)}
+      style={{width: '95%', alignSelf: 'center'}}>
       <ImageBackground
         source={{uri: imagesBaseUrl + movie.backdrop_path}}
         resizeMode="cover"

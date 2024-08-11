@@ -3,6 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import DashBoardScreen from '../screens/bottomtab/DashBoardScreen';
 import BottomTab from './BottomTab';
 import {RootStackRoots} from '../lib/Constants';
+import MovieDetailScreen from '../screens/MovieDetailScreen';
 const Stack = createNativeStackNavigator();
 
 const RootStack = () => {
@@ -15,6 +16,13 @@ const RootStack = () => {
           }}
           name={RootStackRoots.bottomTab}
           component={BottomTab}
+        />
+        <Stack.Screen
+          // options={{
+          //   headerShown: false,
+          // }}
+          name={RootStackRoots.movieDetail}
+          component={MovieDetailScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>
