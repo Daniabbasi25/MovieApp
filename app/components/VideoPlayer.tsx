@@ -23,7 +23,26 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   videoKey,
 }) => {
   const {width, height} = Dimensions.get('window');
-  console.log(`https://www.youtube.com/embed/${videoKey}?autoplay=1`);
+
+  const injectedJavaScript = `
+  document.addEventListener('DOMContentLoaded', function() {
+    var video = document.querySelector('video');
+    if (video) {
+      video.addEventListener('ended', function() {
+        window.ReactNativeWebView.postMessage('videoEnded');
+      });
+    }
+  });
+  true; // Note: This is required to ensure the JS is evaluated
+`;
+
+  const onMessage = (event: any) => {
+    // Handle messages from WebView
+    if (event.nativeEvent.data === 'videoEnded') {
+      onClose(); // Close the modal when video ends
+    }
+  };
+
   return (
     <Modal
       visible={visible}
@@ -36,6 +55,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
           style={{width, height}}
           javaScriptEnabled={true}
           mediaPlaybackRequiresUserAction={false} // Important for autoplay
+          onMessage={onMessage}
         />
         <View
           style={{

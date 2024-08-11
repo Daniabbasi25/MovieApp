@@ -92,12 +92,12 @@ const MovieDetailScreen = ({navigation, route}: any) => {
                 year: 'numeric',
               })}
           </Text>
+          <CustomButton title="Get Tickets" type="Primary" />
           <CustomButton
             onPress={handleWatchTrailer}
-            title="Get Tickets"
-            type="Primary"
+            title="Watch Trailer"
+            type="Secondary"
           />
-          <CustomButton title="Watch Trailer" type="Secondary" />
         </View>
       </ImageBackground>
       <View style={styles.contentContainer}>
