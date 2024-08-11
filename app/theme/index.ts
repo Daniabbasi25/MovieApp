@@ -11,4 +11,5 @@ export const Colors = {
   White: '#FFFFFF',
   Whisper: '#F2F2F6',
   TextBlack: '#202C43',
+  LightText: '#8F8F8F',
 };

@@ -18,12 +18,16 @@ import {
   getWidth,
 } from '../lib';
 import CustomButton from '../components/CustomButton';
+import useOrientation from '../hooks/useOrientation';
 
 const MovieDetailScreen = ({navigation, route}: any) => {
   const {id} = route.params;
   const [movieDetail, setMovieDetail] = useState<
     undefined | MovieDetailProps
   >();
+
+  const isLandscape = useOrientation();
+
   const fetchMovies = useCallback(async () => {
     try {
       const [movieResponse, imagesResponse] = await Promise.all([
@@ -47,7 +51,11 @@ const MovieDetailScreen = ({navigation, route}: any) => {
   }, []);
 
   return (
-    <ScrollView contentContainerStyle={styles.screenContainer}>
+    <ScrollView
+      contentContainerStyle={[
+        styles.screenContainer,
+        {flexDirection: isLandscape ? 'row' : 'column'},
+      ]}>
       <ImageBackground
         resizeMode="stretch"
         style={styles.imageContainer}
@@ -60,10 +68,19 @@ const MovieDetailScreen = ({navigation, route}: any) => {
               flex: 1,
               backgroundColor: 'rgba(0, 0, 0, 0.2)',
               alignItems: 'center',
+              paddingBottom: 20,
             },
             styles.imageContainer,
           ]}>
-          <Text>In theaters {movieDetail?.release_date}</Text>
+          <Text style={styles.whiteText}>
+            In theaters{' '}
+            {movieDetail?.release_date &&
+              new Date(movieDetail?.release_date).toLocaleDateString('en-US', {
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric',
+              })}
+          </Text>
           <CustomButton title="Get Tickets" type="Primary" />
           <CustomButton title="Watch Trailer" type="Secondary" />
         </View>
@@ -85,7 +102,7 @@ const MovieDetailScreen = ({navigation, route}: any) => {
           ))}
         </View>
         <Text style={styles.heading}>Overview</Text>
-        <Text>{movieDetail?.overview}</Text>
+        <Text style={styles.overview}>{movieDetail?.overview}</Text>
       </View>
     </ScrollView>
   );
@@ -103,7 +120,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     // alignItems: 'center',
     gap: 5,
-    paddingBottom: 20,
   },
   contentContainer: {
     flex: 1,
@@ -133,5 +149,17 @@ const styles = StyleSheet.create({
   genreaItemText: {
     color: Colors.White,
     fontFamily: fontFamilies.Popins.normal,
+  },
+  overview: {
+    fontSize: getFontSize(12),
+    fontFamily: fontFamilies.Popins.normal,
+    color: Colors.LightText,
+    textAlign: 'left',
+  },
+  whiteText: {
+    fontSize: getFontSize(16),
+    color: Colors.White,
+    fontFamily: fontFamilies.Popins.normal,
+    fontWeight: '500',
   },
 });
