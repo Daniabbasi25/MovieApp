@@ -41,7 +41,7 @@ const WatchScreen = () => {
   }, []);
   return (
     <View style={styles.screenContainer}>
-      <SearchBar onChangeText={handleSearch} />
+      <SearchBar onChangeText={handleSearch} onclose={() => handleSearch('')} />
       {isSearching ? (
         <SearchList searchText={searchQuery ?? ''} />
       ) : (

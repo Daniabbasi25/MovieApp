@@ -37,7 +37,7 @@ const BottomTab = () => {
           elevation: 5,
           borderTopEndRadius: 27,
           borderTopStartRadius: 27,
-          position: 'absolute',
+          // position: 'absolute',
         },
         tabBarHideOnKeyboard: true,
         tabBarItemStyle: {

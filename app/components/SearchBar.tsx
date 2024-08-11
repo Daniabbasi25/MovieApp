@@ -13,7 +13,10 @@ import {fontFamilies, getFontSize, getWidth} from '../lib';
 import {Colors} from '../theme';
 import CloseIconSvg from '../assets/svg/CloseIconSvg';
 
-const SearchBar: FC<TextInputProps> = ({...extra}) => {
+interface Props extends TextInputProps {
+  onclose: () => void;
+}
+const SearchBar: FC<Props> = ({onclose, ...extra}) => {
   const [isActive, setIsActive] = useState<boolean>(false);
   const textInputRef = useRef<TextInput>(null);
 
@@ -35,7 +38,11 @@ const SearchBar: FC<TextInputProps> = ({...extra}) => {
               style={styles.textInput}
               {...extra}
             />
-            <TouchableOpacity onPress={() => setIsActive(false)}>
+            <TouchableOpacity
+              onPress={() => {
+                onclose();
+                setIsActive(false);
+              }}>
               <CloseIconSvg height={getWidth(5)} width={getWidth(5)} />
             </TouchableOpacity>
           </View>

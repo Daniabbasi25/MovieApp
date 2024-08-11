@@ -1,9 +1,11 @@
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 import React, {FC, useCallback, useEffect, useState} from 'react';
 import {MovieListInfoProps} from '../model';
-import {getHeight} from '../lib';
+import {fontFamilies, getFontSize, getHeight} from '../lib';
 import apiClient from '../config/axiosConfig';
 import {apiKey} from '../config/constant';
+import MovieListItemSecondary from './MovieListItemSecondary';
+import {Colors} from '../theme';
 
 interface Props {
   searchText: string;
@@ -30,7 +32,10 @@ const SearchList: FC<Props> = ({searchText}) => {
     searchMovies();
   }, []);
   return (
-    <View>
+    <View style={{flex: 1}}>
+      <View style={styles.topContainer}>
+        <Text style={styles.text}>Top Results</Text>
+      </View>
       <FlatList
         data={movieList}
         ItemSeparatorComponent={() => {
@@ -44,8 +49,7 @@ const SearchList: FC<Props> = ({searchText}) => {
           );
         }}
         renderItem={({item}) => {
-          return <View />;
-          //   return <MovieListItem movie={item} />;
+          return <MovieListItemSecondary movie={item} />;
         }}
         showsVerticalScrollIndicator={false}
       />
@@ -55,4 +59,18 @@ const SearchList: FC<Props> = ({searchText}) => {
 
 export default SearchList;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  text: {
+    fontWeight: '500',
+    fontSize: getFontSize(12),
+    color: Colors.TextBlack,
+    fontFamily: fontFamilies.Popins.medium,
+  },
+  topContainer: {
+    paddingVertical: getHeight(1.5),
+    marginHorizontal: 20,
+    borderBottomWidth: 1,
+    borderColor: Colors.Gainsboro,
+    marginBottom: 5,
+  },
+});
