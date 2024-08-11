@@ -11,32 +11,40 @@ import {imagesBaseUrl} from '../config/constant';
 import {fontFamilies, getFontSize, getHeight} from '../lib';
 import {Colors} from '../theme';
 import {useNavigation} from '@react-navigation/native';
-import {RootStackRoots} from '../lib/Constants';
+import {RootStackRoots, SKeletonCommonProps} from '../lib/Constants';
+import {Skeleton} from 'moti/skeleton';
 
 interface Props {
-  movie: MovieListInfoProps;
+  movie?: MovieListInfoProps | null;
+  isLoading: boolean;
 }
-const MovieListItem: FC<Props> = ({movie}) => {
+const MovieListItem: FC<Props> = ({movie, isLoading}) => {
   const navigation = useNavigation();
   return (
-    <TouchableOpacity
-      onPress={() =>
-        navigation.navigate(RootStackRoots.movieDetail, {id: movie.id})
-      }
-      style={{width: '95%', alignSelf: 'center'}}>
-      <ImageBackground
-        source={{uri: imagesBaseUrl + movie.backdrop_path}}
-        resizeMode="cover"
-        style={styles.container}>
-        <View
-          style={[
-            {flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.2)'},
-            styles.container,
-          ]}>
-          <Text style={styles.text}>{movie.title}</Text>
-        </View>
-      </ImageBackground>
-    </TouchableOpacity>
+    <Skeleton
+      width={'98%'}
+      show={isLoading}
+      height={getHeight(25)}
+      {...SKeletonCommonProps}>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate(RootStackRoots.movieDetail, {id: movie?.id})
+        }
+        style={{width: '95%', alignSelf: 'center'}}>
+        <ImageBackground
+          source={{uri: imagesBaseUrl + movie?.backdrop_path}}
+          resizeMode="cover"
+          style={styles.container}>
+          <View
+            style={[
+              {flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.2)'},
+              styles.container,
+            ]}>
+            <Text style={styles.text}>{movie?.title}</Text>
+          </View>
+        </ImageBackground>
+      </TouchableOpacity>
+    </Skeleton>
   );
 };
 

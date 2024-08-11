@@ -1,16 +1,31 @@
 import {FlatList, StyleSheet, Text, View} from 'react-native';
-import React, {FC} from 'react';
+import React, {FC, useCallback, useEffect, useState} from 'react';
 import {MovieListInfoProps} from '../model';
 import {getHeight} from '../lib';
 import MovieListItem from './MovieListItem';
+import apiClient from '../config/axiosConfig';
 
-interface Props {
-  data?: MovieListInfoProps[];
-}
-const MainFlatList: FC<Props> = ({data}) => {
+const MainFlatList: FC = () => {
+  const [movieList, setMovieList] = useState<
+    MovieListInfoProps[] | undefined
+  >();
+  const [isLoading, setIsloading] = useState(true);
+  const fetchMovies = useCallback(async () => {
+    try {
+      const response = await apiClient.get('/movie/upcoming');
+      setMovieList(response.data?.results);
+      setIsloading(false);
+    } catch (error) {
+      console.error('Error fetching upcoming movies:', error);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchMovies();
+  }, []);
   return (
     <FlatList
-      data={data}
+      data={movieList ?? [null, null, null]}
       ItemSeparatorComponent={() => {
         return (
           <View
@@ -22,7 +37,7 @@ const MainFlatList: FC<Props> = ({data}) => {
         );
       }}
       renderItem={({item}) => {
-        return <MovieListItem movie={item} />;
+        return <MovieListItem movie={item} isLoading={isLoading} />;
       }}
       showsVerticalScrollIndicator={false}
     />

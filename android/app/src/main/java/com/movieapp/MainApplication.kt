@@ -10,9 +10,13 @@ import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.load
 import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
 import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.soloader.SoLoader
-
+import com.facebook.react.bridge.JSIModulePackage; // Import this
+import com.swmansion.reanimated.ReanimatedJSIModulePackage; // Import this
 class MainApplication : Application(), ReactApplication {
-
+@Override
+protected JSIModulePackage getJSIModulePackage() {
+  return new ReanimatedJSIModulePackage(); // Add this line
+}
   override val reactNativeHost: ReactNativeHost =
       object : DefaultReactNativeHost(this) {
         override fun getPackages(): List<ReactPackage> =
