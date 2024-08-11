@@ -5,6 +5,7 @@ import {apiClient} from '../../config/axiosConfig';
 import {MovieListInfoProps} from '../../model';
 import MovieListItem from '../../components/MovieListItem';
 import {getHeight} from '../../lib';
+import SearchBar from '../../components/SearchBar';
 
 const WatchScreen = () => {
   const [movieList, setMovieList] = useState<
@@ -23,7 +24,8 @@ const WatchScreen = () => {
     fetchMovies();
   }, []);
   return (
-    <SafeAreaView style={styles.screenContainer}>
+    <View style={styles.screenContainer}>
+      <SearchBar />
       <FlatList
         data={movieList}
         ItemSeparatorComponent={() => {
@@ -41,7 +43,7 @@ const WatchScreen = () => {
         }}
         showsVerticalScrollIndicator={false}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 
