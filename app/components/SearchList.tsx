@@ -21,8 +21,7 @@ const SearchList: FC<Props> = ({searchText}) => {
         },
       });
 
-      console.log(response.data.results);
-      // Handle the search results as needed
+      setMovieList(response.data.results);
     } catch (error) {
       console.error('Error searching movies:', error);
     }
