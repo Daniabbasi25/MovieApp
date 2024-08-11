@@ -6,14 +6,30 @@ import {MovieListInfoProps} from '../../model';
 import MovieListItem from '../../components/MovieListItem';
 import {getHeight} from '../../lib';
 import SearchBar from '../../components/SearchBar';
+import MainFlatList from '../../components/MainFlatList';
+import SearchList from '../../components/SearchList';
 
 const WatchScreen = () => {
   const [movieList, setMovieList] = useState<
     MovieListInfoProps[] | undefined
   >();
+  const [searchQuery, setSearchQuery] = useState<string | undefined>();
+  const [isSearching, setIsSearching] = useState<boolean>(false);
+
+  const handleSearch = (query: string) => {
+    if (!query) {
+      setSearchQuery(undefined);
+      setIsSearching(false);
+      return;
+    }
+
+    setSearchQuery(query);
+    setIsSearching(true);
+  };
+
   const fetchMovies = useCallback(async () => {
     try {
-      const response = await apiClient.get('/upcoming');
+      const response = await apiClient.get('/movie/upcoming');
       setMovieList(response.data?.results);
     } catch (error) {
       console.error('Error fetching upcoming movies:', error);
@@ -25,24 +41,12 @@ const WatchScreen = () => {
   }, []);
   return (
     <View style={styles.screenContainer}>
-      <SearchBar />
-      <FlatList
-        data={movieList}
-        ItemSeparatorComponent={() => {
-          return (
-            <View
-              style={{
-                height: getHeight(2),
-                width: '100%',
-              }}
-            />
-          );
-        }}
-        renderItem={({item}) => {
-          return <MovieListItem movie={item} />;
-        }}
-        showsVerticalScrollIndicator={false}
-      />
+      <SearchBar onChangeText={handleSearch} />
+      {isSearching ? (
+        <SearchList searchText={searchQuery ?? ''} />
+      ) : (
+        <MainFlatList data={movieList} />
+      )}
     </View>
   );
 };

@@ -32,7 +32,7 @@ const MovieDetailScreen = ({navigation, route}: any) => {
 
   const handleWatchTrailer = useCallback(async () => {
     try {
-      const res = await apiClient.get(`/${id}/videos`);
+      const res = await apiClient.get(`/movie/${id}/videos`);
       // console.log(res.data);
       setVideoUrl(res.data.results[0].key);
     } catch (error) {
@@ -42,8 +42,8 @@ const MovieDetailScreen = ({navigation, route}: any) => {
   const fetchMovies = useCallback(async () => {
     try {
       const [movieResponse, imagesResponse] = await Promise.all([
-        apiClient.get(`/${id}`),
-        apiClient.get(`/${id}/images`),
+        apiClient.get(`/movie/${id}`),
+        apiClient.get(`/movie/${id}/images`),
       ]);
 
       setMovieDetail(prev => ({

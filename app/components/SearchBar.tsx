@@ -3,17 +3,25 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  TextInputProps,
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useRef, useEffect, FC} from 'react';
 import SearchIconSvg from '../assets/svg/SearchIconSvg';
 import {fontFamilies, getFontSize, getWidth} from '../lib';
 import {Colors} from '../theme';
 import CloseIconSvg from '../assets/svg/CloseIconSvg';
 
-const SearchBar = () => {
+const SearchBar: FC<TextInputProps> = ({...extra}) => {
   const [isActive, setIsActive] = useState<boolean>(false);
+  const textInputRef = useRef<TextInput>(null);
+
+  useEffect(() => {
+    if (isActive && textInputRef.current) {
+      textInputRef.current.focus();
+    }
+  }, [isActive]);
 
   return (
     <View style={styles.container}>
@@ -22,8 +30,10 @@ const SearchBar = () => {
           <View style={styles.searchContainer}>
             <SearchIconSvg height={getWidth(5)} width={getWidth(5)} />
             <TextInput
+              ref={textInputRef}
               placeholder="TV shows, movies and more"
               style={styles.textInput}
+              {...extra}
             />
             <TouchableOpacity onPress={() => setIsActive(false)}>
               <CloseIconSvg height={getWidth(5)} width={getWidth(5)} />
@@ -46,10 +56,8 @@ export default SearchBar;
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: '8%',
-
+    paddingHorizontal: '5%',
     backgroundColor: Colors.White,
-    // marginBottom: 20,
     paddingBottom: 10,
   },
   contentContainer: {
@@ -65,7 +73,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: Colors.Whisper,
     paddingHorizontal: 15,
-    paddingVertical: 10,
+    paddingVertical: 15,
     borderRadius: 30,
     gap: 10,
   },

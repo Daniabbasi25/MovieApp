@@ -1,4 +1,4 @@
-export const baseUrl = 'https://api.themoviedb.org/3/movie';
+export const baseUrl = 'https://api.themoviedb.org/3';
 export const imagesBaseUrl = 'https://image.tmdb.org/t/p/w500';
 export const apiKey = 'b11c7cb34faee319d4be105cc3f21faa';
 export const apiReadAccessToeken =
