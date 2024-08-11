@@ -19,15 +19,26 @@ import {
 } from '../lib';
 import CustomButton from '../components/CustomButton';
 import useOrientation from '../hooks/useOrientation';
+import VideoPlayer from '../components/VideoPlayer';
 
 const MovieDetailScreen = ({navigation, route}: any) => {
   const {id} = route.params;
   const [movieDetail, setMovieDetail] = useState<
     undefined | MovieDetailProps
   >();
+  const [videoUrl, setVideoUrl] = useState<undefined | string>();
 
   const isLandscape = useOrientation();
 
+  const handleWatchTrailer = useCallback(async () => {
+    try {
+      const res = await apiClient.get(`/${id}/videos`);
+      // console.log(res.data);
+      setVideoUrl(res.data.results[0].key);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }, [id]);
   const fetchMovies = useCallback(async () => {
     try {
       const [movieResponse, imagesResponse] = await Promise.all([
@@ -81,7 +92,11 @@ const MovieDetailScreen = ({navigation, route}: any) => {
                 year: 'numeric',
               })}
           </Text>
-          <CustomButton title="Get Tickets" type="Primary" />
+          <CustomButton
+            onPress={handleWatchTrailer}
+            title="Get Tickets"
+            type="Primary"
+          />
           <CustomButton title="Watch Trailer" type="Secondary" />
         </View>
       </ImageBackground>
@@ -104,6 +119,12 @@ const MovieDetailScreen = ({navigation, route}: any) => {
         <Text style={styles.heading}>Overview</Text>
         <Text style={styles.overview}>{movieDetail?.overview}</Text>
       </View>
+
+      <VideoPlayer
+        visible={videoUrl !== undefined}
+        onClose={() => setVideoUrl(undefined)}
+        videoKey={videoUrl ?? ''}
+      />
     </ScrollView>
   );
 };

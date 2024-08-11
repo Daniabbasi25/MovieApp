@@ -21,7 +21,8 @@ const CustomButton: FC<Props> = ({type, title, ...extra}) => {
         type === 'Primary' && {
           backgroundColor: Colors.Skyblue,
         },
-      ]}>
+      ]}
+      {...extra}>
       <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
   );
